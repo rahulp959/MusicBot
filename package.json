@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
+    "start": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,6 +25,7 @@
     "eslint-plugin-import": "^2.22.1",
     "husky": "=4",
     "lint-staged": ">=10",
+    "nodemon": "^2.0.7",
     "prettier": "^2.2.1"
   },
   "husky": {
