@@ -1,4 +1,5 @@
-import fs from "fs";
+// import fs from "fs";
+import { getStream } from "./youtube";
 
 let dispatcher;
 const dispatcherStatusOptions = {
@@ -11,7 +12,7 @@ let dispatcherStatus = "notPlaying";
 
 let dispatcherVolume = 0.01;
 
-export const playSong = (connection) => {
+export const playSong = (connection, url) => {
   if (dispatcherStatus === dispatcherStatusOptions.paused) {
     dispatcherStatus = dispatcherStatusOptions.playing;
     dispatcher.resume();
@@ -19,9 +20,11 @@ export const playSong = (connection) => {
     return;
   }
 
+  const youtubeStream = getStream(url);
+
   // Create a dispatcher
-  dispatcher = connection.play(fs.createReadStream("charmaine.webm"), {
-    type: "webm/opus",
+  dispatcher = connection.play(youtubeStream, {
+    // type: "webm/opus",
     volume: dispatcherVolume,
   });
 

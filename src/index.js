@@ -15,11 +15,13 @@ client.on("ready", () => {
 });
 
 client.on("message", async (message) => {
-  if (message.content === "$music") {
+  if (message.content.match(/\$music (.*)$/i)) {
+    const url = message.content.match(/\$music (.*)$/i)[1];
+
     if (message.member.voice.channel) {
       voiceConnection = await message.member.voice.channel.join();
 
-      playSong(voiceConnection);
+      playSong(voiceConnection, url);
 
       message.channel.send(
         createInfoEmbed("Player Status Changed", "Player Started")
