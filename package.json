@@ -1,0 +1,19 @@
+{
+  "name": "rays-discord-musicbot",
+  "version": "0.0.1",
+  "description": "Discord Music Bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rahulp959/MusicBot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rahulp959/MusicBot/issues"
+  },
+  "homepage": "https://github.com/rahulp959/MusicBot#readme"
+}
