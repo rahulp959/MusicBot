@@ -1,12 +1,11 @@
-import Discord from "discord.js";
 import dotenv from "dotenv";
+import client from "./client";
 
-import { pauseSong, playSong, stopSong, setVolume } from "./player";
+import { pauseSong, stopSong, setVolume, addSong, resumeSong } from "./player";
 import { createErrorEmbed, createInfoEmbed } from "./messages";
+import { getQueue } from "./queue";
 
 dotenv.config();
-
-const client = new Discord.Client();
 
 let voiceConnection;
 
@@ -21,7 +20,7 @@ client.on("message", async (message) => {
     if (message.member.voice.channel) {
       voiceConnection = await message.member.voice.channel.join();
 
-      playSong(voiceConnection, url);
+      addSong(voiceConnection, url);
 
       message.channel.send(
         createInfoEmbed("Player Status Changed", "Player Started")
@@ -46,6 +45,24 @@ client.on("message", async (message) => {
     message.channel.send(
       createInfoEmbed("Player Status Changed", "Player Paused")
     );
+  }
+
+  if (message.content === "$resume") {
+    resumeSong();
+    message.channel.send(
+      createInfoEmbed("Player Status Changed", "Player Resumed")
+    );
+  }
+
+  if (message.content === "$queue") {
+    const queue = getQueue();
+    let queueMessage = "";
+
+    queue.forEach((url, index) => {
+      queueMessage += `${index + 1}) ${url}\r\n`;
+    });
+
+    message.channel.send(createInfoEmbed("Player Queue", queueMessage));
   }
 
   if (message.content.match(/\$volume ([1-9][0-9]?$|100)/i)) {
